@@ -14,7 +14,7 @@ after_success:
     - docker build -t hayreddintuzel/multi-server ./server
     - docker build -t hayreddintuzel/multi-worker ./worker
     #log in to the docker CLI
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+    - echo $DOCKER_PASSWORD | docker login -u $DOCKER_ID --password-stdin
     # Take those images and push them to docker hub
     - docker push hayreddintuzel/multi-client
     - docker push hayreddintuzel/multi-nginx
@@ -23,13 +23,13 @@ after_success:
 
 deploy:
     provider: elasticbeanstalk
-    region: "eu-central-1"
-    app: "multi-docker"
-    env: "MultiDocker-env"
-    bucket_name: "elasticbeanstalk-eu-central-1-321745808350"
-    bucket_path: "docker-multi"
+    region: eu-central-1
+    app: multi-docker
+    env: MultiDocker-env
+    bucket_name: elasticbeanstalk-eu-central-1-321745808350
+    bucket_path: docker-multi
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: 
-        secure: "$AWS_SECRET_KEY"
+        secure: $AWS_SECRET_KEY
     on:
         branch: master
